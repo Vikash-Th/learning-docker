@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  sensor:
+    build: ./sensor
+    volumes:
+      - shared-sensor-data:/data
+
+  logger:
+    build: ./logger
+    volumes:
+      - shared-sensor-data:/data
+    # Ensures the sensor starts up up alongside the logger
+    depends_on:
+      - sensor
+
+volumes:
+  shared-sensor-data:
